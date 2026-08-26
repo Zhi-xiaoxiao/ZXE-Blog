@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端开发技巧 - 志校儿的博客</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <div class="article-container">
+        <a href="../../index.html" class="back-home">← 返回首页</a>
+        
+        <article class="article-header">
+            <h1 class="article-title">前端开发技巧</h1>
+            <div class="article-meta">
+                <span>发布日期：2026-08-26</span> | 
+                <span>标签：技术</span>
+            </div>
+        </article>
+        
+        <div class="article-content">
+            <p>在前端开发的道路上，我积累了一些实用的技巧和最佳实践，今天分享给大家。</p>
+            
+            <h2>1. CSS重置与标准化</h2>
+            <p>每个浏览器的默认样式都不同，使用CSS重置或标准化可以确保跨浏览器的一致性：</p>
+            <pre><code>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}</code></pre>
+            
+            <h2>2. 使用CSS变量</h2>
+            <p>CSS变量可以让样式管理更加灵活：</p>
+            <pre><code>:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --font-size-base: 16px;
+}
+
+.button {
+    background-color: var(--primary-color);
+    font-size: var(--font-size-base);
+}</code></pre>
+            
+            <h2>3. 响应式设计技巧</h2>
+            <p>使用媒体查询实现响应式布局：</p>
+            <pre><code>@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}</code></pre>
+            
+            <h2>4. JavaScript性能优化</h2>
+            <p><strong>防抖（Debounce）：</strong>限制函数执行频率</p>
+            <pre><code>function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}</code></pre>
+            
+            <p><strong>节流（Throttle）：</strong>保证函数在一定时间内只执行一次</p>
+            <pre><code>function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}</code></pre>
+            
+            <h2>5. 使用Flexbox布局</h2>
+            <p>Flexbox让布局变得简单：</p>
+            <pre><code>.container {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    gap: 20px;               /* 项目间距 */
+}</code></pre>
+            
+            <h2>6. 使用Grid布局</h2>
+            <p>CSS Grid适合复杂的二维布局：</p>
+            <pre><code>.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}</code></pre>
+            
+            <h2>7. 图片优化</h2>
+            <p>使用现代图片格式和懒加载：</p>
+            <pre><code>&lt;img 
+    src="image.webp" 
+    alt="描述"
+    loading="lazy"
+    width="800"
+    height="600"
+&gt;</code></pre>
+            
+            <h2>8. 语义化HTML</h2>
+            <p>使用语义化标签提高可访问性和SEO：</p>
+            <pre><code>&lt;header&gt;页眉&lt;/header&gt;
+&lt;nav&gt;导航&lt;/nav&gt;
+&lt;main&gt;
+    &lt;article&gt;文章内容&lt;/article&gt;
+    &lt;aside&gt;侧边栏&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;页脚&lt;/footer&gt;</code></pre>
+            
+            <h2>9. 本地存储技巧</h2>
+            <p>使用localStorage和sessionStorage：</p>
+            <pre><code>// 存储数据
+localStorage.setItem('key', 'value');
+sessionStorage.setItem('key', 'value');
+
+// 读取数据
+const value = localStorage.getItem('key');
+
+// 删除数据
+localStorage.removeItem('key');
+
+// 清空所有
+localStorage.clear();</code></pre>
+            
+            <h2>10. 调试技巧</h2>
+            <p>善用console的各种方法：</p>
+            <pre><code>console.log('普通日志');
+console.warn('警告信息');
+console.error('错误信息');
+console.table([{name: '张三', age: 25}]);
+console.time('计时开始');
+// 你的代码
+console.timeEnd('计时结束');</code></pre>
+            
+            <h2>总结</h2>
+            <p>这些技巧只是前端开发的冰山一角，持续学习和实践才是提升的关键。希望这些内容能对你的开发工作有所帮助！</p>
+        </div>
+    </div>
+    
+    <style>
+        .article-content pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .article-content code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content h2 {
+            margin-top: 30px;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+    </style>
+</body>
+</html>
