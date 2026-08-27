@@ -28,6 +28,7 @@
             <span class="tag" data-tag="technology">技术</span>
             <span class="tag" data-tag="life">生活</span>
             <span class="tag" data-tag="study">学习</span>
+            <span class="tag" data-tag="share">分享</span>
         </div>
     </div>
 
@@ -42,8 +43,16 @@
     </main>
 
     <script>
-        // 博客数据
+        // 博客数据 
         const blogPosts = [
+            {
+                title: "开源分享：Audioto 极简音频转码工具",
+                tag: "share",
+                tagName: "分享",
+                date: "2026-08-27",
+                excerpt: "分享我开源的基于 PySide6 的极简桌面端音频转码工具 Audioto，支持多格式互转，提供开箱即用的 exe 版本。",
+                url: "posts/share/audioto-intro.html"
+            },
             {
                 title: "免费用 Cloudflare Pages 获得 .pages.dev 域名教程",
                 tag: "technology",
@@ -84,7 +93,7 @@
                 excerpt: "这是我的第一篇博客文章，记录了我在开发过程中的心得体会...",
                 url: "posts/technology/first-post.html"
             }
-        ]; // ✅ 修复了这里的语法错误
+        ]; 
 
         let currentTag = 'all';
         let searchQuery = '';
