@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开源分享：Audioto 极简音频转码工具 - 志校儿的博客</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        /* 针对分享文章的补充样式 */
+        .article-content h2 {
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        .article-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        .article-content code {
+            background-color: #f1f3f5;
+            color: #e83e8c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .github-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 24px;
+            background-color: #24292e;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .github-btn:hover {
+            background-color: #444d56;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <a href="../../index.html" class="back-home">← 返回首页</a>
+        
+        <article class="article-header">
+            <h1 class="article-title">开源分享：Audioto —— 一款极简的 GUI 音频转码工具</h1>
+            <div class="article-meta">
+                <span>发布日期：2026-08-27</span> | 
+                <span>标签：分享</span>
+            </div>
+        </article>
+        
+        <div class="article-content">
+            <p>在日常工作和生活中，我们经常需要将音频文件在不同的格式之间进行转换。虽然网上有很多在线转换工具，但往往伴随着文件大小限制、上传隐私风险或繁琐的广告。</p>
+            <p>为了解决这个痛点，我开发并开源了一款基于 Python 和 PySide6 的极简桌面端音频转码工具 —— <strong>Audioto</strong>。</p>
+
+            <h2>✨ 核心功能特性</h2>
+            <ul>
+                <li><strong>主流格式支持</strong>：完美支持 MP3, WAV, FLAC, AAC, OGG 等常见音频格式的互相转换。</li>
+                <li><strong>高度自定义</strong>：支持自定义输出目录，并可自由设置默认输出码率（默认 192kbps，兼顾音质与体积）。</li>
+                <li><strong>实时反馈</strong>：内置实时进度条显示与详细的状态提示，转码过程一目了然。</li>
+                <li><strong>极简设计</strong>：界面干净直观，没有多余的复杂选项，真正做到“开箱即用”。</li>
+            </ul>
+
+            <h2>📦 如何获取与使用</h2>
+            <p>为了照顾不同技术背景的用户，Audioto 提供了两种使用方式：</p>
+            
+            <h3>方式一：直接运行（推荐普通用户）</h3>
+            <p>我已经将程序打包为独立的 <code>.exe</code> 可执行文件（内置了 ffmpeg），无需安装任何环境，下载后双击即可直接运行。</p>
+
+            <h3>方式二：源码运行（推荐开发者）</h3>
+            <p>如果你想查看源码或参与贡献，可以通过以下方式在本地运行：</p>
+            <ul>
+                <li>确保已安装 <strong>Python 3.8+</strong></li>
+                <li>安装依赖：<code>pip install PySide6</code></li>
+                <li>下载 <strong>ffmpeg</strong>，并将 <code>ffmpeg.exe</code> 放置在程序同级目录下</li>
+                <li>运行主程序脚本即可启动 GUI 界面</li>
+            </ul>
+
+            <h2>🔗 项目地址</h2>
+            <p>本项目已在 GitHub 完全开源。如果你觉得这个工具对你有帮助，欢迎前往仓库点个 <strong>Star</strong> ⭐，你的支持是我持续更新的最大动力！</p>
+            
+            <a href="https://github.com/zhi-xiaoer/Audioto" target="_blank" class="github-btn">
+                前往 GitHub 查看 Audioto 项目 →
+            </a>
+        </div>
+    </div>
+</body>
+</html>
