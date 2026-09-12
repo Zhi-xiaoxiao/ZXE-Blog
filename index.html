@@ -43,8 +43,16 @@
     </main>
 
     <script>
-        // 博客数据 
+        // 博客数据
         const blogPosts = [
+            {
+                title: "从零开始搭建 Flask Web 应用指南",
+                tag: "technology",
+                tagName: "技术",
+                date: "2026-09-12",
+                excerpt: "记录使用 Python Flask 框架从零搭建轻量级 Web 应用的核心步骤、环境配置与最佳实践。",
+                url: "posts/technology/flask-setup.html"
+            },
             {
                 title: "开源分享：Audioto 极简音频转码工具",
                 tag: "share",
@@ -141,13 +149,9 @@
         // 标签点击事件
         document.getElementById('tagsContainer').addEventListener('click', (e) => {
             if (e.target.classList.contains('tag')) {
-                // 移除所有active类
                 document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
-                // 添加active类到当前标签
                 e.target.classList.add('active');
-                // 更新当前标签
                 currentTag = e.target.dataset.tag;
-                // 重新渲染
                 renderPosts();
             }
         });
