@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>从零开始搭建 Flask Web 应用指南 - 志校儿的博客</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .article-content h2 {
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #34495e;
+            font-size: 18px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        .article-content code {
+            background-color: #f1f3f5;
+            color: #e83e8c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .article-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .article-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <a href="../../index.html" class="back-home">← 返回首页</a>
+        
+        <article class="article-header">
+            <h1 class="article-title">从零开始搭建 Flask Web 应用指南</h1>
+            <div class="article-meta">
+                <span>发布日期：2026-09-12</span> | 
+                <span>标签：技术</span>
+            </div>
+        </article>
+        
+        <div class="article-content">
+            <p>在 Python 的 Web 框架中，Flask 以其“微框架”（Microframework）的特性脱颖而出。它没有 Django 那样沉重的内置组件，而是提供了极高的灵活性和自由度，非常适合快速构建轻量级 API 或中小型 Web 应用。</p>
+            <p>今天，我将记录从零开始搭建一个 Flask 项目的核心步骤与最佳实践。</p>
+
+            <h2>1. 环境准备</h2>
+            <p>在开始之前，强烈建议使用虚拟环境来隔离项目依赖，避免不同项目之间的包版本冲突。</p>
+            <pre><code># 创建项目文件夹并进入
+mkdir my_flask_app && cd my_flask_app
+
+# 创建虚拟环境 (Windows)
+python -m venv venv
+# 创建虚拟环境 (macOS/Linux)
+python3 -m venv venv
+
+# 激活虚拟环境 (Windows)
+venv\Scripts\activate
+# 激活虚拟环境 (macOS/Linux)
+source venv/bin/activate</code></pre>
+
+            <h2>2. 安装 Flask</h2>
+            <p>在激活的虚拟环境中，使用 pip 安装 Flask：</p>
+            <pre><code>pip install flask</code></pre>
+            <p>建议顺手生成依赖文件，方便后续部署：</p>
+            <pre><code>pip freeze > requirements.txt</code></pre>
+
+            <h2>3. 编写第一个应用</h2>
+            <p>在项目根目录下创建一个名为 <code>app.py</code> 的文件，写入以下最基础的代码：</p>
+            <pre><code>from flask import Flask
+
+# 初始化 Flask 应用
+app = Flask(__name__)
+
+# 定义路由和视图函数
+@app.route('/')
+def hello_world():
+    return "Hello, Flask! 这是我的第一个 Web 应用。"
+
+# 启动应用
+if __name__ == '__main__':
+    # debug=True 会在代码修改后自动重启，并提供详细的错误页面
+    app.run(debug=True, port=5000)</code></pre>
+
+            <h2>4. 运行与调试</h2>
+            <p>在终端中运行该文件：</p>
+            <pre><code>python app.py</code></pre>
+            <p>你会看到类似这样的输出：</p>
+            <pre><code> * Serving Flask app 'app'
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000</code></pre>
+            <p>打开浏览器访问 <code>http://127.0.0.1:5000</code>，就能看到你的网页了！</p>
+
+            <h2>5. 推荐的项目结构</h2>
+            <p>虽然 Flask 很灵活，但随着项目变大，将所有代码塞进一个文件是灾难。推荐采用以下基础结构：</p>
+            <pre><code>my_flask_app/
+├── venv/                 # 虚拟环境目录 (不要上传到 Git)
+├── app.py                # 应用入口文件
+├── requirements.txt      # 依赖列表
+├── templates/            # 存放 HTML 模板文件 (Jinja2)
+│   └── index.html
+└── static/               # 存放静态文件 (CSS, JS, 图片)
+    └── style.css</code></pre>
+
+            <h2>6. 下一步探索</h2>
+            <ul>
+                <li><strong>模板渲染</strong>：学习使用 <code>render_template</code> 返回动态 HTML。</li>
+                <li><strong>数据库集成</strong>：引入 <code>Flask-SQLAlchemy</code> 进行数据持久化。</li>
+                <li><strong>表单处理</strong>：使用 <code>Flask-WTF</code> 安全地处理用户输入。</li>
+                <li><strong>RESTful API</strong>：使用 <code>Flask-RESTful</code> 或原生方法构建前后端分离的接口。</li>
+            </ul>
+
+            <h2>总结</h2>
+            <p>Flask 的魅力在于“按需扩展”。它给了你坚实的基石，而如何构建大厦，完全由你决定。希望这篇指南能帮你顺利迈出 Flask 开发的第一步！</p>
+        </div>
+    </div>
+</body>
+</html>
