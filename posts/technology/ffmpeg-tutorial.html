@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFmpeg 极简实战教程：音视频处理的瑞士军刀 - 志校儿的博客</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .article-content h2 {
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #34495e;
+            font-size: 18px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        .article-content code {
+            background-color: #f1f3f5;
+            color: #e83e8c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .article-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .article-content pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .tip-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <a href="../../index.html" class="back-home">← 返回首页</a>
+        
+        <article class="article-header">
+            <h1 class="article-title">FFmpeg 极简实战教程：音视频处理的瑞士军刀</h1>
+            <div class="article-meta">
+                <span>发布日期：2026-09-15</span> | 
+                <span>标签：技术</span>
+            </div>
+        </article>
+        
+        <div class="article-content">
+            <p>在音视频处理领域，<strong>FFmpeg</strong> 是当之无愧的王者。无论是格式转换、视频裁剪、提取音频，还是压缩体积、添加水印，它都能通过几行简单的命令行轻松搞定。今天我们就来掌握这把“瑞士军刀”的核心用法。</p>
+
+            <h2>1. 安装 FFmpeg</h2>
+            <ul>
+                <li><strong>Windows</strong>：前往官网下载 Build 版本，解压后将 <code>bin</code> 目录添加到系统环境变量 PATH 中。</li>
+                <li><strong>macOS</strong>：使用 Homebrew 一键安装：<code>brew install ffmpeg</code></li>
+                <li><strong>Linux (Ubuntu/Debian)</strong>：使用 apt 安装：<code>sudo apt install ffmpeg</code></li>
+            </ul>
+            <p>安装完成后，在终端输入 <code>ffmpeg -version</code>，看到版本号即表示安装成功。</p>
+
+            <h2>2. 核心语法逻辑</h2>
+            <p>FFmpeg 的命令结构非常直观，基本遵循以下公式：</p>
+            <pre><code>ffmpeg [全局参数] -i [输入文件] [处理参数] [输出文件]</code></pre>
+            <div class="tip-box">
+                <strong>💡 核心原则</strong>：FFmpeg 是“基于扩展名”工作的。你只需要告诉它输入是什么，输出文件名是什么扩展名，它会自动选择合适的编码器进行转换。
+            </div>
+
+            <h2>3. 高频实战命令</h2>
+
+            <h3>① 格式转换（最基础）</h3>
+            <p>将 MP4 视频转换为 MKV，或者将 MP3 转换为 WAV：</p>
+            <pre><code>ffmpeg -i input.mp4 output.mkv
+ffmpeg -i audio.mp3 audio.wav</code></pre>
+
+            <h3>② 提取视频中的音频</h3>
+            <p>只需要音频流，不需要视频画面（<code>-vn</code> 表示 no video）：</p>
+            <pre><code>ffmpeg -i video.mp4 -vn -acodec mp3 audio.mp3</code></pre>
+
+            <h3>③ 裁剪视频片段</h3>
+            <p>从第 10 秒开始，截取时长为 5 秒的片段（<code>-ss</code> 是开始时间，<code>-t</code> 是持续时间）：</p>
+            <pre><code>ffmpeg -i input.mp4 -ss 00:00:10 -t 5 -c copy output.mp4</code></pre>
+            <p><em>注：<code>-c copy</code> 表示直接复制流而不重新编码，速度极快，但裁剪点可能不是关键帧导致有误差。如果需要精确裁剪，去掉 <code>-c copy</code> 即可。</em></p>
+
+            <h3>④ 压缩视频体积</h3>
+            <p>通过降低码率（<code>-b:v</code>）和分辨率（<code>-s</code>）来减小文件大小：</p>
+            <pre><code># 将视频宽度压缩为 1280，高度自动按比例缩放
+ffmpeg -i input.mp4 -vf scale=1280:-1 -b:v 1000k output.mp4</code></pre>
+
+            <h3>⑤ 调整视频播放速度</h3>
+            <p>将视频加速 2 倍（<code>setpts</code> 调整视频，<code>atempo</code> 调整音频）：</p>
+            <pre><code>ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" -af "atempo=2.0" output.mp4</code></pre>
+
+            <h3>⑥ 合并多个视频片段</h3>
+            <p>首先创建一个文本文件 <code>list.txt</code>，内容如下：</p>
+            <pre><code>file 'part1.mp4'
+file 'part2.mp4'
+file 'part3.mp4'</code></pre>
+            <p>然后执行合并命令：</p>
+            <pre><code>ffmpeg -f concat -safe 0 -i list.txt -c copy output.mp4</code></pre>
+
+            <h3>⑦ 为视频添加图片水印</h3>
+            <p>将水印图片放在视频的右下角（距离边缘 10 像素）：</p>
+            <pre><code>ffmpeg -i input.mp4 -i watermark.png -filter_complex "overlay=W-w-10:H-h-10" output.mp4</code></pre>
+
+            <h2>4. 实用小技巧</h2>
+            <ul>
+                <li><strong>查看文件信息</strong>：不想处理，只想看视频的编码、分辨率、时长？使用 <code>ffprobe input.mp4</code>。</li>
+                <li><strong>截取一张封面图</strong>：提取视频第 5 秒的画面作为 JPG 图片：<code>ffmpeg -i input.mp4 -ss 00:00:05 -vframes 1 cover.jpg</code></li>
+                <li><strong>批量处理</strong>：FFmpeg 本身不支持批量，但可以结合 Shell 脚本或 Python 的 <code>subprocess</code> 模块轻松实现批量转码。</li>
+            </ul>
+
+            <h2>总结</h2>
+            <p>FFmpeg 的参数多达数百个，但日常开发和使用中，掌握上述 20% 的核心命令就能解决 80% 的问题。建议将常用的命令保存为脚本或别名（Alias），能极大提升你的工作效率。</p>
+        </div>
+    </div>
+</body>
+</html>
